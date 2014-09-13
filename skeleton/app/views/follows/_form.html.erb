@@ -1,0 +1,11 @@
+<% follow_state = current_user.follows?(user) ? "following" : "not-following"  %>
+
+<button data-user-id="<%= user.id %>" data-initial-follow-state="<%= follow_state %>" class="follow-toggle"> </button>
+
+
+<script>
+(function () {
+ $('.follow-toggle').followToggle(); 
+  
+});
+</script>
