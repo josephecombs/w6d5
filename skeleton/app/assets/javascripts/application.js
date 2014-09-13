@@ -116,6 +116,7 @@ $.UsersSearch.prototype.handleInput = function () {
     },
     success: function (data) {
       that.renderResults(data);
+      that.$el.prop("disabled", false);
     }
   });
 }
@@ -133,3 +134,50 @@ $.UsersSearch.prototype.renderResults = function (data) {
   }.bind(this))
   
 }
+
+$.TweetCompose = function(el) {
+  this.$el = $(el);
+  this.$el.on('submit', this.handleEvent.bind(this)); 
+  
+}
+
+$.TweetCompose.prototype.handleEvent = function () {
+  event.preventDefault();
+
+  this.$el.prop("disabled", true);
+
+  var that = this;
+  debugger;
+  $.ajax({
+
+    url: "/tweets",
+    type: "POST",
+    dataType: "json",
+    // dataType: $.ajax,
+    data: that.$el.serialize(),
+    // data: {user_id: that.userId},
+    error: function () {
+      that.$el.prop("disabled", false);
+    },
+    success: function (data) {
+      debugger;
+      var query = this.$el.data('tweets-ul')
+      
+     //append most recent tweet
+
+    }
+  });
+  
+};
+
+
+
+$.fn.tweetCompose = function () {
+  return this.each(function () {
+    new $.TweetCompose(this); 
+  })
+}
+
+
+
+
